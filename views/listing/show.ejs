@@ -1,0 +1,177 @@
+<% layout('/layouts/boilerplate') %>
+<!--use row columns setup to make the image responsive-->
+<body>
+  
+<div class="both row">
+<div class="detail col-sm-6">        <!-- configuration valid till small-->
+    <h2 style="margin-left: 15px"><%= data[0].title %></h2>
+    <div class="show-card-image">
+      <img src="<%= data[0].image.url %>" class="show-card-img-top" alt="listing_image">
+    </div>
+    <div class="show-card-body">
+      <h5 class="show-card-title">Book Now in <%= data[0].location %>,<%= data[0].country %>
+      <br><br> 
+      At Just: &#8377 <%= data[0].price.toLocaleString("en-IN") %>
+      </h5>
+      <p class="show-des">
+        <%= data[0].description %>
+      </p>
+      <p>Added By: <%= data[0].owner.username %></p>
+    </div>
+    
+    
+    <div class="button-box">
+        <!--using flexbox to align them in same line-->
+        <div class="d-flex gap-5 align-items-center">
+           <a class="btn btn-warning edit" href="/listing/edit/<%= data[0]._id.toString() %>" role="button">Edit</a>
+
+           <form action="/listing/delete/<%= data[0]._id.toString() %>?_method=DELETE" method="POST" class="m-0">
+               <button type="submit" class="btn btn-danger delete">Delete</button>
+           </form>
+        </div>
+    </div>
+  </div>
+
+
+<div class="review-box col-sm-3">
+  <h3>Leave a Review</h3>
+        
+  <form action="/listing/<%=data[0]._id%>/review" method="post"  novalidate class="needs-validation">      <!--nonvalidate to avoid browser feedbacks, need-validation to implement client side validation
+                                        prevents form from getting submitted if required values not given it does so with the help of js code from bootstrap --> 
+  <div class="mb-3">
+    <label for="comment" class="form-label">comment</label>
+    <textarea class="form-control" id="comment" name="comment" placeholder="Please Share Your Experience" required rows="4"></textarea>
+    <div class="valid-feedback">Looks good</div>
+    <div class="invalid-feedback">Enter a valid Comment</div>
+  </div>
+  <!-- commented out the slider rating  input option-->
+  <!-- <div class="mb-3">
+    <label for="rating" class="form-label">Rating</label>
+    <input  type="range" class="form-range" id="rating"  name="rating" placeholder="Enter rating between 1 to 5" required min="1" max="5">
+    <output for="rating" id="rangeValue" aria-hidden="true"></output>
+    
+<script>   //to create rating as an sliding option
+  // This is an example script, please modify as needed
+  const rangeInput = document.getElementById('rating');
+  const rangeOutput = document.getElementById('rangeValue');
+
+  // Set initial value
+  rangeOutput.textContent = rangeInput.value;
+
+  rangeInput.addEventListener('input', function() {
+    rangeOutput.textContent = this.value;
+  });
+</script>
+    <div class="valid-feedback">Looks good</div>
+    <div class="invalid-feedback">Enter a rating between 1 and 5</div>
+</div> -->
+
+<div class="mb-3">
+  <label for="rating" class="form-label">Rating</label>
+<fieldset class="starability-slot">
+  <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="1" checked aria-label="No rating." />
+  <input type="radio" id="first-rate1" name="rating" value="1" />
+  <label for="first-rate1" title="Terrible">1 star</label>
+  <input type="radio" id="first-rate2" name="rating" value="2" />
+  <label for="first-rate2" title="Not good">2 stars</label>
+  <input type="radio" id="first-rate3" name="rating" value="3" />
+  <label for="first-rate3" title="Average">3 stars</label>
+  <input type="radio" id="first-rate4" name="rating" value="4" />
+  <label for="first-rate4" title="Very good">4 stars</label>
+  <input type="radio" id="first-rate5" name="rating" value="5" />
+  <label for="first-rate5" title="Amazing">5 stars</label>
+</fieldset>
+</div>
+
+  <button type="submit" class="btn btn-dark">Submit</button>
+  </form>
+
+</div>
+</div>
+
+<hr style="margin-left: 6rem;margin-right: 6rem;margin-top: 2rem;"/>
+
+<h3 style="margin-left:7rem;  margin-top: 2rem">Reviews</h3>
+<% if (data[0].reviews.length) { %>
+ 
+<div class="show-review">
+
+<% for( let index = 0; index < data[0].reviews.length; index++ ) { %>
+<div class="card each-review">
+  <div class="card-body">
+    <h5 class="card-title">Created By: <%= data[0].reviews[index].owner.username %></h5>
+    <div class="card-subtitle mb-2 text-body-secondary review-rating">
+      <p class="starability-result" data-rating= "<%= data[0].reviews[index].rating %>"> </p>
+      <p class="review-date"><%= data[0].reviews[index].created_at.toString().split(" ").slice(0,4).join(" ") %></p>
+    </div>
+    <p class="card-text review-comment"><%= data[0].reviews[index].comment %></p>
+    
+    <form action="/listing/<%= data[0]._id.toString() %>/review/<%= data[0].reviews[index]._id.toString() %>?_method=DELETE" method="POST" class="m-0">
+      <button type="submit" class="btn btn-dark btn-sm delete review-dlt-btn"><i class="fa-solid fa-trash"></i></button>
+    </form>
+  </div>
+</div>
+  <% } %>
+  
+</div>
+<% } else { %>
+  <p style="margin-left:7rem;  margin-top: 0.5rem">Be the First One to Review...</p>
+  <% } %>
+
+
+
+<hr style="margin-left: 6rem;margin-right: 6rem;margin-top: 2rem;"/>
+<h3 style="margin-left:7rem;  margin-top: 3rem">Where You Will be...</h3>
+<div id="map"></div>
+
+
+
+
+
+
+<!--we will be using the connct links here only bcoz we are using inpage script to make out map fn
+if we use the connct links in boiler plate there is a lag issue that is the map scrip runs b4 the DOM(boilerplate) loads-->
+
+ <!--for map using leaf let-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
+<!-- Make sure you put this AFTER Leaflet's CSS -->
+     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
+<!--as we are using static everything inside your public/ folder is served relative to the root URL, so the browser can access it-->
+<!--making the long and lat publically avl in all ext js-->
+     <script>
+        const coordinates={
+          lon: parseFloat("<%= data[0].geometry.coordinates[0] %>") ,
+          lat: parseFloat("<%= data[0].geometry.coordinates[1] %>")
+        };
+     </script>
+     <script src="/js/map.js"></script>
+
+<!-- 
+
+<script>
+  //First we’ll initialize the map and set its view to our chosen geographical coordinates and a zoom level:
+  //all mouse and touch interactions on the map are enabled, and it has zoom and attribution controls.
+  var map = L.map('map').setView([51.505, -0.09], 13);
+
+/*
+L.map('map')	Creates a Leaflet map inside the HTML element with id="map".
+.setView([...], zoom)	Centers the map at the given latitude/longitude and sets the initial zoom level.
+var map = ...	Stores the resulting Leaflet map object in a variable named map.
+*/
+
+
+
+//we’ll add a tile layer to add to our map, in this case it’s a OpenStreetMap tile layer. Creating a tile layer usually involves setting the URL template for the tile images, 
+// the attribution text, and the maximum zoom level of the layer.
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+}).addTo(map);
+
+</script> -->
+    
+</body>

@@ -1,0 +1,52 @@
+<!-- navbars can be of two types one ul , second anchor tags-->
+<!--navbar expand decides when the 3 line should appear and navbar should collapse-->
+<!--can show icon in navbar brand plaxe
+sticky top to fix it at top-->
+<nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top" style="background-color: #e3f2fd;">
+
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/listing"><i class="fa-brands fa-vk"></i> </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+
+      <div class="navbar-nav nav-item">
+        <a class="nav-link" href="/listing">Explore</a>
+        <a class="nav-link" href="/listing/new">Add New Listing</a>
+      </div>
+
+   <div class="navbar-nav nav-item mx-auto d-flex" >
+    <!--mx auto d-flex will center this w.r.t parent conatineer-->
+    <form action="/listing/country/countryName" method="GET"    class="d-flex" role="search">
+      <input class="form-control me-2 search-in" type="search" placeholder="Search Destination" aria-label="Search" name="search"/>
+      <button class="btn btn-search" type="submit">Search</button>
+    </form>
+  </div>
+
+<div class="navbar-nav nav-item ms-auto" style="margin-right: 1rem;">   
+        <li class="nav-item dropstart">
+          <button class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-solid fa-user"></i>
+          </button>
+          
+          <ul class="dropdown-menu">
+            <!--we will check log in status using req.user-->
+            <% if (!currUser) { %>           <!--req.user saved in currUser using a middleware-->
+              
+            <li><a class="dropdown-item" href="/users/signup"><b>Sign up</b></a></li>
+            <hr style="margin: 0;">
+            <li><a class="dropdown-item" href="/users/signin"><b>Sign in</b></a></li>
+            
+            <% }  %>
+            <% if(currUser) { %>
+            <li><a class="dropdown-item" href="/users/signout"><b>Sign out</b></a></li>
+            <% } %>
+
+          </ul>
+        </li>
+      </div>  
+    </div>
+  </div>
+</nav>

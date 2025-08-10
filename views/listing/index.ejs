@@ -1,0 +1,89 @@
+<% layout('/layouts/boilerplate') %>
+
+    <!--div which shows all the filters possible-->
+    <% const categories = ["Mountain", "Beach", "Apartment", "Farm", "Iconic", "Trending"] %>
+    <% const categoriesIcon = ["fa-solid fa-mountain-city", "fa-solid fa-umbrella-beach", "fa-solid fa-building","fa-solid fa-cow", "fa-solid fa-ranking-star", "fa-solid fa-fire"] %>
+
+
+    <div class="parent">
+    <div class="filter-box">
+      <% for( let index = 0; index < categories.length; index++ ) { %>
+          <div class="category-box">
+              <a class="filter-anchor" href="/listing/filter/<%= categories[index] %>">
+                <i class="<%= categoriesIcon[index] %>"></i>
+                <p class="filterName"><%= categories[index] %></p>
+              </a>
+          </div>
+      <% } %>
+      
+    </div>
+
+    <!--display the switch button-->
+      <div class="form-check-reverse form-switch tax-switch">
+       <input class="form-check-input" type="checkbox" role="switch" id="switchCheckChecked">
+       <label class="form-check-label" for="switchCheckChecked">Show Prices After Gst</label>
+      </div>
+
+    </div>
+     
+    <!-- <h2 style="margin-left: 6rem;padding-top:1rem; margin-bottom:0;">All Listings</h2> -->
+
+    
+    <!--creating our own grid-->
+  <div class="grid-container">
+    
+      <% for( let index = 0; index < data.length; index++ ) { %>
+            <!--either make the whole card as anchor tag or create separate anchor tags for separate fields-->
+            
+            <div class="card listing-card" style="width: 18rem;">
+                <a href="/listing/<%= data[index]._id.toString() %>">
+                <img src="<%= data[index].image.url %>" class="card-img-top" alt="listing_image">
+                <div class="card-img-overlay"> <!--Write here to show over the image!--></div>
+                </a>
+                <div class="card-body">
+                    <a href="/listing/<%= data[index]._id.toString() %>"  class="card-title">
+                    <h5 class="card-title"><%= data[index].title %></h5>
+                    </a>
+                     <p class="card-text">
+                        <span class="withoutGst"> &#8377 <%= data[index].price.toLocaleString("en-IN") %></span>
+                        <span class="withGst" style="display: none;">&#8377 <%= (data[index].price*1.18).toLocaleString("en-IN") %></span>
+                       <span class="location">for 2 Nights</span>
+                    </p>
+                </div>
+            </div>
+            
+                          
+    <% } %>
+    
+  </div>
+
+    <!--listing will be used as href to move to listing/:id to move that particular id-->
+    <!--<a class="btn btn-primary" href="/listing/new" role="button">ADD PLACE</a>  button added in navbar--> 
+
+<!--adding script to implement tax switch-->
+<script>
+  let taxSwitch= document.getElementById("switchCheckChecked");
+  taxSwitch.addEventListener("click", ()=>{
+    //show display of each type of price one by one
+    let withGst= document.getElementsByClassName("withGst");
+    let withoutGst= document.getElementsByClassName("withoutGst");
+
+    //console.log(withGst.length);
+    //now we have an array of all prices
+    for(var i=0;i<withGst.length;i=i+1){
+      //console.log(withGst[i]);
+      if(withGst[i].style.display!=='inline'){
+        withGst[i].style.display='inline';
+        withoutGst[i].style.display='none';
+      }
+      else{
+        withGst[i].style.display='none';
+        withoutGst[i].style.display='inline';
+      }
+    }
+  });
+</script>
+
+
+ 
+

@@ -1,0 +1,44 @@
+<% layout('/layouts/boilerplate') %>
+<div class="full-sign-box" style="text-align: center;">
+<div class="signup-box col-3">
+    <h3 style="margin-bottom: 40px;">SIGN UP</h3>
+    <div class="col-sm google-sign">
+        <a class="btn btn-block" href="/users/auth/google" role="button">
+            <i class="fab fa-google"></i> &nbsp;  &nbsp; 
+            Sign Up with Google 
+        </a>
+    </div>
+       
+
+      <p>Or</p>
+<form action="/users/signup" method="POST"  novalidate class="needs-validation">
+     
+    <div class="email-box sign-input">
+    <input type="email" class="form-control" id="email" name="email" placeholder="Enter your Email" required>
+    
+    <div class="valid-feedback">Looks good</div>
+    <div class="invalid-feedback">Enter a valid Email Addresss</div>
+    </div>
+    
+    <div class="username-box sign-input">
+    <input type="text" class="form-control" id="username" name="username" placeholder="Enter a unique username" required>
+    
+    <div class="valid-feedback">Looks good</div>
+    <div class="invalid-feedback">Enter a Unique Username</div>
+    </div>
+
+    <div class="passowrd-box sign-input">
+    <input type="password" class="form-control" id="password" name="password" placeholder="Enter a valid Password" required>
+    
+    <div class="valid-feedback">Looks good</div>
+    <div class="invalid-feedback">Enter a valid Password</div>
+    </div>
+    <button type="submit" class="btn btn-success">SIGN UP</button>
+
+</form>
+</div>
+<p class="mt-3">Already have an Account? <a href="/users/signin">SIGN IN</a></p>
+</div>
+
+
+

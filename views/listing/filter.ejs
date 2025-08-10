@@ -1,0 +1,39 @@
+<% layout('/layouts/boilerplate') %>
+
+
+    <% if (data.length!==0) { %>
+     
+    
+    <h5 style="margin-left: 6rem;padding-top:1rem; margin-bottom:0;">Listings Under Category <%= data[0].category %></h5>
+    <!--creating our own grid-->
+  <div class="grid-container">
+    
+      <% for( let index = 0; index < data.length; index++ ) { %>
+            <!--either make the whole card as anchor tag or create separate anchor tags for separate fields-->
+            
+            <div class="card listing-card" style="width: 18rem;">
+                <a href="/listing/<%= data[index]._id.toString() %>">
+                <img src="<%= data[index].image.url %>" class="card-img-top" alt="listing_image">
+                <div class="card-img-overlay"> <!--Write here to show over the image!--></div>
+                </a>
+                <div class="card-body">
+                    <a href="/listing/<%= data[index]._id.toString() %>"  class="card-title">
+                    <h5 class="card-title"><%= data[index].title %></h5>
+                    </a>
+                     <p class="card-text">
+                        &#8377 <%= data[index].price.toLocaleString("en-IN") %>
+                       <span class="location">for 2 Nights</span>
+                    </p>
+                </div>
+            </div>
+        
+                          
+    <% } %>
+    
+  </div>
+  <% }  else { %>
+    <h2 style="margin-left: 6rem;padding-top:1rem; margin-bottom:0;">No Listing Available Under this Category...</h2>
+  <% } %>
+   
+
+ 

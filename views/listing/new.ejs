@@ -1,0 +1,95 @@
+<% layout('/layouts/boilerplate') %>
+<!---
+imp:
+(i) to adjust the width of the form we can use row and col
+(ii) let the screeen is of col-12 then no. of col u use in class name will decide the width
+(iii)- use offset to give left margin
+(iv)- use same row col sys to adjust price and country such that they are in  same col till mediul -> if ledd tha  that they shoould come in different cols
+-->
+<body>
+  
+    <div class="row  new">
+      
+      <div class="col-6 offset-3">
+        <br>
+        <h3>Add a new Listing</h3>
+        <br>
+    <form action="/listing/add" method="post"  novalidate class="needs-validation" enctype="multipart/form-data">      <!--nonvalidate to avoid browser feedbacks, need-validation p
+                                        prevents form from getting submitted if required values not given it does so with the help of js code from bootstrap -->
+  
+  <div class="mb-3">
+    <label for="title" class="form-label">Title</label>
+    <input type="text" class="form-control" id="title" name="title" placeholder="Add a Lucrative title" required>
+    <div class="valid-feedback">Looks good</div>
+    <div class="invalid-feedback">Enter a valid Title</div>
+  </div>
+
+  <div class="mb-3">
+    <label for="description" class="form-label">Description</label>
+    <textarea class="form-control" id="description"  name="description" placeholder="Describe the Place" required></textarea>
+    <div class="valid-feedback">Looks good</div>
+    <div class="invalid-feedback">Enter a valid Description</div>
+  </div>
+ 
+  <!--select category from the dropdown-->
+  <div class="mb-3">
+  <div class="form-floating">
+  <select class="form-select" id="floatingSelect" name="category" required>
+      <option value="" disabled selected hidden>Select the Category of Your Listing</option>
+      <option value="Trending">Trending</option>
+      <option value="Mountain">Mountain</option>
+      <option value="Iconic">Iconic</option>
+      <option value="Beach">Beach</option>
+      <option value="Farm">Farm</option>
+      <option value="Apartment">Apartment</option>
+    </select>
+
+  <label for="floatingSelect">Category</label>
+  <div class="valid-feedback">Looks good</div>
+  <div class="invalid-feedback">Select a Valid Category</div>
+</div>
+</div>
+
+  <!-- <div class="mb-3">
+    <label for="image" class="form-label">Image</label>
+    <input type="text" class="form-control" id="image"  name="image" placeholder="Enter URL">
+  </div> -->
+
+  <div class="mb-3">
+    <label for="image" class="form-label">Upload Listing Image</label>
+    <input type="file" class="form-control" id="image"  name="image" required>
+    <div class="valid-feedback">Looks good</div>
+    <div class="invalid-feedback">Upload a Valid Image</div>
+  </div>
+  
+  <div class="row">
+    <div class="col-md-4">
+  <div class="mb-3">
+    <label for="price" class="form-label">Price</label>
+    <input  type="number" class="form-control" id="price"  name="price" placeholder="&#8377;" required>
+    <div class="valid-feedback">Looks good</div>
+    <div class="invalid-feedback">Enter a valid Price</div>
+  </div>
+  </div>
+<div class="col-md-8">
+  <div class="mb-3">
+    <label for="location" class="form-label">Location</label>
+    <input type="text" class="form-control" id="location"  name="location" placeholder="Enter Address as City, State" required>
+    <div class="valid-feedback">Looks good</div>
+    <div class="invalid-feedback">Enter a valid Location</div>
+  </div>
+  </div>
+</div>
+  <div class="mb-3">
+    <label for="country" class="form-label">Country</label>
+    <input type="text" class="form-control" id="country"  name="country" placeholder="Country Name" required>
+    <div class="valid-feedback">Looks good</div>
+    <div class="invalid-feedback">Enter a valid Country Name</div>
+  </div>
+
+  <button type="submit" class="btn btn-dark">Submit</button>
+</form>
+</div>
+</div>
+    
+</body>
