@@ -8,6 +8,10 @@ async function getCoordinates(location) {
      //make the api call
      const encodedLocation = encodeURIComponent(location); // safely encode "city, country"
     const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodedLocation}`);
+    
+  const text = await response.text();
+  console.log(text); // This will show you the HTML error page
+
     //parse the response
     const data = await response.json();
     //data have a lot many things
