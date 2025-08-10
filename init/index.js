@@ -1,10 +1,12 @@
 import mongoose from "mongoose";
 import List from "../models/listing.js";
 import sampleListings from "./data.js";
-import { configDotenv } from "dotenv";
+import dotenv from 'dotenv';
+dotenv.config(); 
 //all the data variables get imported as immutable objects
 
 //this file will be used to intiallise the db
+console.log(process.env.ATLAS_DB);
 const dbURL=process.env.ATLAS_DB;
 main()
  .then(()=> {
