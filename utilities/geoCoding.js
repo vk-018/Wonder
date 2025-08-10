@@ -5,6 +5,7 @@
 //geocode fn
 // In your external JS file
 async function getCoordinates(location) {
+  console.log("hit");
      //make the api call
      const encodedLocation = encodeURIComponent(location); // safely encode "city, country"
     const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodedLocation}`);
