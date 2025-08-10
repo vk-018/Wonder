@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 dotenv.config(); 
 import mongoose from "mongoose";
 import express from "express";
+import cors from "cors";
 
 //app.set("views", custom_path) is crucial if EJS files are not in the default views directory.
 import path from "path"
@@ -52,7 +53,13 @@ const port=3000;
 
 //to make static style sheets work
 app.use(express.static("public"));
-
+app.use(
+  cors({
+    origin: "https://wonder-gtkx.onrender.com", // frontend URL
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 //set view engine
 // ESM-compatible __dirname
 const __filename = fileURLToPath(import.meta.url);

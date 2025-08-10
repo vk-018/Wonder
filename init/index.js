@@ -1,10 +1,11 @@
 import mongoose from "mongoose";
 import List from "../models/listing.js";
 import sampleListings from "./data.js";
+import { configDotenv } from "dotenv";
 //all the data variables get imported as immutable objects
 
 //this file will be used to intiallise the db
-
+const dbURL=process.env.ATLAS_DB;
 main()
  .then(()=> {
     console.log("connected to db");
@@ -12,8 +13,7 @@ main()
 .catch(err => console.log(err));
 
 async function main() {
-  await mongoose.connect('mongodb://127.0.0.1:27017/airbnb');
-                                       //mention the datapase name in last
+  await mongoose.connect(dbURL);                                       //mention the datapase name in last
 }
 
 async function initDB(){
