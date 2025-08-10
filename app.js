@@ -92,6 +92,9 @@ const store=MongoStore.create({
 store.on("error", ()=>{
   console.log("eroro in mongo session store");
 })
+// ✅ Must be here, before passport/session
+app.set('trust proxy', 1);     // force passport oto reirect to http's'   links
+
 //setting up session
 var sessionOB ={
     store:store,    //saving mongo store url
